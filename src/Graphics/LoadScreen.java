@@ -17,6 +17,7 @@ public class LoadScreen {
         this.gui = g;
     }
 
+    // initiate the Screen
     public void init(){
 
         JFrame frame = new JFrame("Directed Weighted Graph");

@@ -16,20 +16,21 @@ public class GUI extends JFrame implements ActionListener {
 
     private int curveScale = 45;
 
-    HashMap<String, Boolean> checkEdge = new HashMap<String, Boolean>();
+    HashMap<String, Boolean> checkEdge = new HashMap<String, Boolean>(); // check if src -> dst or dst -> src edge already created
 
     private double xMin, xMax, yMin, yMax;
     private DirectedWeightedGraphAlgorithms algo;
     double width, height;
-    private int kRADIUS = 15;
+    private int kRADIUS = 15; // the size of the circles of the nodes
     private Image mBuffer_image;
     private Graphics mBuffer_graphics;
 
+    // custom colors to save
     private Color normalColor = Color.BLUE;
     private Color shortestPathColor = new Color(86, 255, 0);
     private Color centerColor = new Color(0, 0, 0);
 
-    private int extraSpecialSize = 10;
+    private int extraSpecialSize = 10; // curve amount
 
     public GUI(DirectedWeightedGraphAlgorithms algo) {
         this.algo = algo;
@@ -40,6 +41,7 @@ public class GUI extends JFrame implements ActionListener {
         this.algo = algo;
     }
 
+    // updating the size by the nodes we got, probably gonna be called when we add node or delete, or load a new json
     public void updateSize(){
         Iterator<NodeData> t = this.algo.getGraph().nodeIter();
         if (t != null) {
@@ -72,6 +74,7 @@ public class GUI extends JFrame implements ActionListener {
         this.height = size.getHeight();
     }
 
+    // initiate the GUI of the graph
     public void init() {
 
         updateSize();
@@ -134,6 +137,7 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+    // painting the graph, nodes and edges, labels of the weight.
     @Override
     public void paintComponents(Graphics g) {
 
@@ -145,11 +149,11 @@ public class GUI extends JFrame implements ActionListener {
             Dimension pos = getPointPosition(nd.getLocation().x(), nd.getLocation().y());
             g.setColor(normalColor);
             if(nd.getInfo() != null ){
-                if(nd.getInfo().equals("In Path")) {
+                if(nd.getInfo().equals("In Path")) { // if this edge is a part of tsp or shortest path
                     g.setColor(shortestPathColor);
                     special=true;
                 }
-                else if(nd.getInfo().equals("Center")){
+                else if(nd.getInfo().equals("Center")){ // if the node is the center
                     g.setColor(centerColor);
                     special=true;
                 }
@@ -171,7 +175,7 @@ public class GUI extends JFrame implements ActionListener {
             g.setColor(Color.RED);
 
             if(ed.getInfo() != null ) {
-                if (ed.getInfo().equals("In Path")) {
+                if (ed.getInfo().equals("In Path")) { // if the edge is a part of the shortest path or tsp
                     g.setColor(shortestPathColor);
                 }
             }
@@ -185,11 +189,11 @@ public class GUI extends JFrame implements ActionListener {
             int width = ((int) posSrc.getWidth() + (int) posDst.getWidth()) / 2;
             int height = ((int) posSrc.getHeight() + (int) posDst.getHeight()) / 2;
 
-            //double check = src.getKey() *  dst.getKey() * this.algo.getGraph().nodeSize();
             String check = src.getKey() + "_" + dst.getKey();
             String revCheck = dst.getKey() + "_" + src.getKey();
             QuadCurve2D.Double curve;
 
+            // check if src -> dst edge or dst -> src edge exist already
             if (checkEdge.get(check) == null && checkEdge.get(revCheck) == null) {
 
                 checkEdge.put(check, true);
@@ -197,6 +201,7 @@ public class GUI extends JFrame implements ActionListener {
                 width += curveScale;
                 height += curveScale;
 
+                // curve the edge
                 curve = new QuadCurve2D.Double((int) posSrc.getWidth(), (int) posSrc.getHeight(), width, height, (int) posDst.getWidth(), (int) posDst.getHeight());
                 ((Graphics2D) g).draw(curve);
 
@@ -204,6 +209,7 @@ public class GUI extends JFrame implements ActionListener {
                 width -= curveScale;
                 height -= curveScale;
 
+                // curve the edge
                 curve = new QuadCurve2D.Double((int) posSrc.getWidth(), (int) posSrc.getHeight(), width, height, (int) posDst.getWidth(), (int) posDst.getHeight());
                 ((Graphics2D) g).draw(curve);
             }
@@ -211,6 +217,7 @@ public class GUI extends JFrame implements ActionListener {
             g.setColor(new Color(0, 0, 0));
             Font font = new Font("Ariel", Font.BOLD, 14);
 
+            // make the label of the weight and rotate it as the edge way.
             AffineTransform tx = new AffineTransform();
 
             double angle = Math.atan2((int) posDst.getHeight() - height, (int) posDst.getWidth() - width);
@@ -243,6 +250,7 @@ public class GUI extends JFrame implements ActionListener {
         g.drawImage(mBuffer_image, 0, 0, this);
     }
 
+    // create an injective function from the minimum nodes positions to the size of the screen
     public Dimension getPointPosition(double x, double y) {
         Dimension size = new Dimension();
 
@@ -259,6 +267,7 @@ public class GUI extends JFrame implements ActionListener {
         return size;
     }
 
+    // actionPerformed when clicked at any button. then we use str.equals to determine each button clicked
     @Override
     public void actionPerformed(ActionEvent e) {
         String str = e.getActionCommand();
@@ -308,6 +317,7 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+    // make tsp nodes changed in the graph
     public void tspGUI(int[] nodes){
         this.clear();
 
@@ -324,6 +334,7 @@ public class GUI extends JFrame implements ActionListener {
         repaint();
     }
 
+    // clear any algorithm that currently play in the graph
     public void clear(){
         Iterator<NodeData> t = algo.getGraph().nodeIter();
         while(t.hasNext()){
@@ -340,6 +351,7 @@ public class GUI extends JFrame implements ActionListener {
         repaint();
     }
 
+    // make shortest path nodes changed in the graph
     public void shortestPath(int src, int dst){
         this.clear();
         List<NodeData> shortest = algo.shortestPath(src,dst);
@@ -349,6 +361,7 @@ public class GUI extends JFrame implements ActionListener {
         repaint();
     }
 
+    // mark the info of the path we gave the function to "In Path" to change the color later
     public void markPath(List<NodeData> shortest){
         for(int i = 0; i<shortest.size()-1; i++){
             NodeData nd = shortest.get(i);
@@ -364,6 +377,7 @@ public class GUI extends JFrame implements ActionListener {
         nd.setInfo("In Path");
     }
 
+    // adding node to the graph
     public void addNode(double x, double y){
 
         GeoLocation geo = new GeoLocationImp(x,y,0);
@@ -379,16 +393,19 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+    // adding edge to the graph
     public void addEdge(int src, int dst, double weight){
         this.algo.getGraph().connect(src, dst, weight);
         repaint();
     }
 
+    // removing node from graph
     public void removeNode(int key){
         this.algo.getGraph().removeNode(key);
         repaint();
     }
 
+    // removing edge from graph
     public void removeEdge(int src, int dst){
         this.algo.getGraph().removeEdge(src, dst);
         repaint();
