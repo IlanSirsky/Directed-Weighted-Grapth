@@ -100,7 +100,7 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
             return 0.0;
         }
         HashMap<NodeData[], Double> res = DijkstraAlgo(this.graph, src, dest);
-        Map.Entry<NodeData[], Double> entry = res.entrySet().iterator().next(); 
+        Map.Entry<NodeData[], Double> entry = res.entrySet().iterator().next(); //retrieving the shortest path distance from the dijkstra algorithm
         return entry.getValue();
     }
 
@@ -110,18 +110,18 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
             return null;
         }
         HashMap<NodeData[], Double> res = DijkstraAlgo(this.graph, src, dest);
-        Map.Entry<NodeData[], Double> entry = res.entrySet().iterator().next();
+        Map.Entry<NodeData[], Double> entry = res.entrySet().iterator().next(); //retrieving the shortest path from the dijkstra algorithm
         NodeData[] prev = entry.getKey();
         NodeData nd = prev[dest];
         List<NodeData> path = new ArrayList<>();
 
-        while (prev[nd.getKey()] != null) {
+        while (prev[nd.getKey()] != null) { //adding the nodes to the path itself
             path.add(0, nd);
             nd = prev[nd.getKey()];
         }
         if (nd != null) path.add(0, nd);
         path.add(this.graph.getNode(dest));
-        return path;
+        return path; //returning the list that contains all the nodes in the path
     }
 
     public HashMap<NodeData[], Double> DijkstraAlgo(DirectedWeightedGraphImp graph, int src, int dest) {
@@ -130,15 +130,15 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
         NodeData[] prev = new NodeData[graph.nodeSize()];
         for (int i = 0; i < dist.length; i++) {
             visit.add(i);
-            dist[i] = Integer.MAX_VALUE;
-            prev[i] = null;
+            dist[i] = Integer.MAX_VALUE; //set distance to all to "infinity"
+            prev[i] = null; //set all prev to null
         }
-        dist[src] = 0;
+        dist[src] = 0; //distance to src himself is 0
 
         while (!visit.isEmpty()) {
             int lowerIndex = 0;
             double lowerValue = dist[visit.get(lowerIndex)];
-            for (int i = 1; i < visit.size(); i++) {
+            for (int i = 1; i < visit.size(); i++) { //finding the index with the lowest value
                 if (lowerValue > dist[visit.get(i)]) {
                     lowerIndex = i;
                     lowerValue = dist[visit.get(i)];
@@ -146,10 +146,10 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
             }
 
             Iterator<EdgeData> edgeIter = graph.edgeIter(visit.get(lowerIndex));
-            while (edgeIter.hasNext()) {
+            while (edgeIter.hasNext()) { //checking all adjacent nodes
                 EdgeData ed = edgeIter.next();
                 double alt = dist[visit.get(lowerIndex)] + ed.getWeight();
-                if (alt < dist[ed.getDest()]) {
+                if (alt < dist[ed.getDest()]) { //updating the prev and distance
                     dist[ed.getDest()] = alt;
                     prev[ed.getDest()] = graph.getNode(visit.get(lowerIndex));
                 }

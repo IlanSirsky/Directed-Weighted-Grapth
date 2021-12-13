@@ -222,13 +222,14 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.iterator.remove();
             removeEdge(this.posEdge.getSrc(), this.posEdge.getDest());
         }
+
         private void isOK() {
             if (this.compareMC != mc) {
                 throw new RuntimeException("Can't continue, the graph has been changed");
             }
         }
     }
-    private class EdgeIteratorPerNode implements Iterator<EdgeData> {
+    private class EdgeIteratorPerNode implements Iterator<EdgeData> { //implementation to the Iterator class
         private Iterator<EdgeData> iterator;
         private EdgeData posEdge;
         private int compareMC; // compare between our MC to the main class graph MC
@@ -248,6 +249,8 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.posEdge = this.iterator.next();
             return this.posEdge;
         }
+
+
         @Override
         public void remove() {
             isOK();
@@ -257,6 +260,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
 
         }
 
+        //comparing the MC from the graph before and after changes
         private void isOK() {
             if (this.compareMC != mc) {
                 throw new RuntimeException("Can't continue, the graph has been changed");
@@ -267,6 +271,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         private Iterator<NodeData> iterator;
         private NodeData posNode;
         private int compareMC; // compare between our MC to the main class graph MC
+
         public NodeIterator() {
             this.compareMC = mc;
             this.iterator = nodes.values().iterator();
@@ -289,8 +294,9 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.iterator.remove();
             removeNode(this.posNode.getKey());
         }
+
         private void isOK() {
-            if (compareMC != mc) { // if this mc is not equal to main mc than we made something to the main graph and we need a new iterator
+            if (compareMC != mc) { // if this mc is not equal to main mc than we made changes to the main graph ,and we need a new iterator
                 throw new RuntimeException("Can't continue, the graph has been changed");
             }
         }
