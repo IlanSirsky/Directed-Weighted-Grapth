@@ -1,6 +1,6 @@
 # Directed Weighted Graph
 
-**Created by Eldad Tsemach and Ilan Sirisky**
+*Created by Eldad Tsemach, Ilan Sirisky and Nir Meir *
 
 This project is a part of our Object Oriented Programming course in Java. The above project deals with the
 implementation of a Directed Weighted graph, using Nodes and Edges. As well as implementing a number of algorithms on
@@ -28,34 +28,50 @@ Example of the algorithm:
 
 ## Code Description
 
-- `GeoLocation.java` and `NodeData.java` : Implements and represents the vertices of the graph.
-- `EdgeData.java`: Implements and represents the edges of the graph.
-- `WeightedDirectedGraph.java`: Implements the graph itself, by using 2 hashmaps one for NodeData and the other for
+- `GeoLocationImp.java` and `NodeDataImp.java` : Implements and represents the vertices of the graph.
+- `EdgeDataImp.java`: Implements and represents the edges of the graph.
+- `WeightedDirectedGraphImp.java`: Implements the graph itself, by using 2 hashmaps one for NodeData and the other for
   EdgeData.
-- `api.Algorithms.java`: Implements all the algorithms that are listed above.
-- `Graphics.GUI` and `Graphics.LoadScreen`: are part of the Graphics.GUI.
+- `Algorithms.java`: Implements all the algorithms that are listed above.
+- `GUI.java`, `LoadScreen.java`, `AddScreen.java`, `RemoveScreen.java`, `ShortPathScreen.java` and `TspScreen.java`: are all part of the GUI.
 
 ## Dependencies
 
-This project is using Java version 15. The tests included in this project are on JUnit version 5.7. Reading and writing
-the json files are based on Gson version 2.8.6.
+This project is using Java version 15.
+
+The tests included in this project are on JUnit version 5.7.
+
+Reading and writing the json files are based on Gson version 2.8.6.
 
 # How to Run
 
-To run this project, download th EX2.jar and /data folder, and place them in the same folder.
+To run this project, download th Ex2.jar and /data folder, and place them in the same folder.
 
-- *Option 1* : Run from Graphics.GUI After you have downloaded the files neccessary (Ex2.jar, /data) run Ex2.jar, enter a path to
-  a json file in the loading screen. Select to run an algorithm from the menu. You can also choose to load or save a new
-  json file from the menu.
-- *Option 2* : run form CLI After you have downloaded the files neccessary (Ex2.jar, /data), open a terminal at the
-  current folder, and type:
-  `java -jar Ex2.jar G1.json `, or any json file.
+- Run from CLI After you have downloaded the files neccessary (Ex2.jar, /data), open a terminal at the
+  current folder,
+  
+  and type: `java -jar Ex2.jar <path\G1.json>`, or any json file. (Example for a path `.\data\G1.json`).
+- Inside the GUI from the menu bar you can find:
+   - `File` : 
+      - Save the graph to a new json file.
+      -  Load a new graph from a json file in the right format.
+   - `Algorithm` : 
+       - Find the shortest path between two nodes. Enter 2 node IDs that are in the graph. The path will be shown in green color.
+       - Find the center node of the graph. The node Will be shown in black color.
+       - Run a TSP algorithm on a group of nodes. Enter any amount of node IDs as you want with ',' between them, example (1,3,7,11). he path will be shown in green color.
+       - Clear any colors from the graph.
+   - `Graph` :
+       - Add a new node to the graph. Enter X and Y coordinates.
+       - Add a new edge to the graph. Enter 2 node IDs you wish to connect and choose the weight of the edge.
+       - Delete a node from the graph. Choose node ID to delete.
+       - Delete an edge from the graph. Choose 2 node IDs you with to disconnect.
+  
 
 ## Input/Output Examples
 
 ### Example for G1.json input :
 
-![Building](https://i.imgur.com/LohNcL8.png)| ![](https://i.imgur.com/MQzNuCr.png)
+![](https://i.imgur.com/LohNcL8.png) | ![](https://i.imgur.com/MQzNuCr.png)
 
 ##### In Edges :
 

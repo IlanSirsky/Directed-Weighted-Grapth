@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class RemoveScreen {
 
-    enum Mode{
+    enum Mode{ // creating 2 modes Node and Edge
         NODE,
         EDGE
     }
@@ -20,6 +20,7 @@ public class RemoveScreen {
         this.gui = g;
     }
 
+    // initiate the Screen
     public void init() {
 
         JFrame frame = new JFrame("Directed Weighted Graph");
@@ -29,7 +30,7 @@ public class RemoveScreen {
         contentPane.setLayout(null);
         contentPane.setBackground(new Color(220, 190, 153));
 
-        JLabel Header = new JLabel("Directed Weighted Graph -- Made by Eldad and Ilan");
+        JLabel Header = new JLabel("Directed Weighted Graph -- Made by Eldad ,Ilan and Nir");
         Header.setBounds(0, 0, frame.getWidth(), 30);
         Header.setHorizontalAlignment(JTextField.CENTER);
         Header.setForeground(new Color(10, 59, 73));
@@ -45,6 +46,7 @@ public class RemoveScreen {
 
     }
 
+    // removing node from the graph
     public void RemoveNode(Container contentPane, JFrame frame){
         JTextArea key = new JTextArea("1");
         key.setLocation(10, 100);
@@ -78,6 +80,7 @@ public class RemoveScreen {
 
         frame.setVisible(true);
     }
+    // removing edge from the graph
     public void RemoveEdge(Container contentPane, JFrame frame){
         JTextArea src = new JTextArea("1");
         src.setLocation(10, 100);

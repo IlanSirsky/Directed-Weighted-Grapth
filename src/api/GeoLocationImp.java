@@ -19,6 +19,7 @@ public class GeoLocationImp implements api.GeoLocation {
         this.z = Double.parseDouble(loc[2]);
     }
 
+    //getters and setters
     @Override
     public double x() {
         return this.x;

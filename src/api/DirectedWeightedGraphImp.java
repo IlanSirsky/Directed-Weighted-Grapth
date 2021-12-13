@@ -19,7 +19,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         this.mc = 0;
     }
 
-    public DirectedWeightedGraphImp(DirectedWeightedGraphImp g) {
+    public DirectedWeightedGraphImp(DirectedWeightedGraphImp g) { //constructor
         this.edges = new HashMap<String, EdgeData>();
         this.nodes = new HashMap<Integer, NodeData>();
         this.edgePerNode = new HashMap<Integer, edgeForNode>();
@@ -39,27 +39,30 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         this.mc = g.mc;
     }
 
+    //returning a requested node by its id
     @Override
     public NodeData getNode(int key) {
-        if (!nodes.containsKey(key)) {
+        if (!nodes.containsKey(key)) { //extreme case
             System.out.println("Key doesn't exist in the graph");
             return null;
         }
         return this.nodes.get(key);
     }
 
+    //returning a requested edge by its src and dest
     @Override
     public EdgeData getEdge(int src, int dest) {
-        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) {
+        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) {//extreme case if one of the ids isn't in the graph
             return null;
         }
         String key = Integer.toString(src) + edgeSpaceKey + Integer.toString(dest);
-        if (!edges.containsKey(key)) {
+        if (!edges.containsKey(key)) { //extreme case if the edge doesn't exist
             return null;
         }
         return this.edges.get(key);
     }
 
+    //adding a new node to the graph
     @Override
     public void addNode(NodeData n) {
         int key = n.getKey();
@@ -69,14 +72,15 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         mc++;
     }
 
+    //connecting 2 nodes with an edge with a given weight
     @Override
     public void connect(int src, int dest, double w) {
-        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) {
+        if (!nodes.containsKey(src) || !nodes.containsKey(dest)) { //extreme case if one of the ids isn't in the graph
             return;
         }
-        EdgeData edge = new EdgeDataImp(src, w, dest);
+        EdgeData edge = new EdgeDataImp(src, w, dest); //creating the edge
         String key = Integer.toString(src) + edgeSpaceKey + Integer.toString(dest);
-        this.edges.put(key, edge);
+        this.edges.put(key, edge); //adding to the graph
 
         // add edge to nodes - if from then edgeForNode.src else edgeForNode.dst
         this.edgePerNode.get(src).src.put(dest, edge); // added to src node
@@ -85,19 +89,22 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         mc++;
     }
 
+    //returning an iterator for the nodes
     @Override
     public Iterator<NodeData> nodeIter() {
         return new NodeIterator();
     }
 
+    //returning an iterator for the edges
     @Override
     public Iterator<EdgeData> edgeIter() {
         return new EdgeIterator();
     }
 
+    //returning an iterator for the edges that are adjacent to a specific node
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        if (!nodes.containsKey(node_id)) {
+        if (!nodes.containsKey(node_id)) { //extreme case if the id isn't in the graph
             System.out.println("Key doesn't exist in the graph");
             return null;
         }
@@ -106,7 +113,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
 
     @Override
     public NodeData removeNode(int key) {
-        if (!nodes.containsKey(key)) {
+        if (!nodes.containsKey(key)) { //extreme case if the id isn't in the graph
             System.out.println("Key doesn't exist in the graph");
             return null;
         }
@@ -137,12 +144,12 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
 
     @Override
     public EdgeData removeEdge(int src, int dest) {
-        if (!nodes.containsKey(src) || !nodes.containsKey(dest) || getEdge(src, dest) == null) {
+        if (!nodes.containsKey(src) || !nodes.containsKey(dest) || getEdge(src, dest) == null) { //extreme case if one of the ids isn't in the graph
             return null;
         }
         String key = Integer.toString(src) + edgeSpaceKey + Integer.toString(dest);
         EdgeData ed = this.edges.get(key);
-        this.edges.remove(key);
+        this.edges.remove(key); //removing the edge from the graph
 
         this.edgePerNode.get(src).src.remove(dest);
         this.edgePerNode.get(dest).dst.remove(dest);
@@ -152,11 +159,13 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         return ed;
     }
 
+    //returning the amount of nodes in the graph
     @Override
     public int nodeSize() {
         return this.nodes.size();
     }
 
+    //returning the amount of edges in the graph
     @Override
     public int edgeSize() {
         return this.edges.size();
@@ -213,13 +222,14 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.iterator.remove();
             removeEdge(this.posEdge.getSrc(), this.posEdge.getDest());
         }
+
         private void isOK() {
             if (this.compareMC != mc) {
                 throw new RuntimeException("Can't continue, the graph has been changed");
             }
         }
     }
-    private class EdgeIteratorPerNode implements Iterator<EdgeData> {
+    private class EdgeIteratorPerNode implements Iterator<EdgeData> { //implementation to the Iterator class
         private Iterator<EdgeData> iterator;
         private EdgeData posEdge;
         private int compareMC; // compare between our MC to the main class graph MC
@@ -239,6 +249,8 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.posEdge = this.iterator.next();
             return this.posEdge;
         }
+
+
         @Override
         public void remove() {
             isOK();
@@ -248,6 +260,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
 
         }
 
+        //comparing the MC from the graph before and after changes
         private void isOK() {
             if (this.compareMC != mc) {
                 throw new RuntimeException("Can't continue, the graph has been changed");
@@ -258,6 +271,7 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
         private Iterator<NodeData> iterator;
         private NodeData posNode;
         private int compareMC; // compare between our MC to the main class graph MC
+
         public NodeIterator() {
             this.compareMC = mc;
             this.iterator = nodes.values().iterator();
@@ -280,8 +294,9 @@ public class DirectedWeightedGraphImp implements api.DirectedWeightedGraph {
             this.iterator.remove();
             removeNode(this.posNode.getKey());
         }
+
         private void isOK() {
-            if (compareMC != mc) { // if this mc is not equal to main mc than we made something to the main graph and we need a new iterator
+            if (compareMC != mc) { // if this mc is not equal to main mc than we made changes to the main graph ,and we need a new iterator
                 throw new RuntimeException("Can't continue, the graph has been changed");
             }
         }

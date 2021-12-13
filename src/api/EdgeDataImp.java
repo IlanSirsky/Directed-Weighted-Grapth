@@ -16,6 +16,8 @@ public class EdgeDataImp implements api.EdgeData {
         this.tag = 0;
     }
 
+
+    //getters and setters
     @Override
     public int getSrc() {
         return this.src;

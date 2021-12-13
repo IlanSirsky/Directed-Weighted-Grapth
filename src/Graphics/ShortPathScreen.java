@@ -13,6 +13,7 @@ public class ShortPathScreen {
         this.gui = g;
     }
 
+    // initiate the Screen
     public void init() {
 
         JFrame frame = new JFrame("Directed Weighted Graph");
@@ -22,7 +23,7 @@ public class ShortPathScreen {
         contentPane.setLayout(null);
         contentPane.setBackground(new Color(220, 190, 153));
 
-        JLabel Header = new JLabel("Directed Weighted Graph -- Made by Eldad and Ilan");
+        JLabel Header = new JLabel("Directed Weighted Graph -- Made by Eldad ,Ilan and Nir");
         Header.setBounds(0, 0, frame.getWidth(), 30);
         Header.setHorizontalAlignment(JTextField.CENTER);
         Header.setForeground(new Color(10, 59, 73));

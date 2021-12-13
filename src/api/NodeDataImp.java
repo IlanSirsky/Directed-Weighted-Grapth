@@ -15,6 +15,7 @@ public class NodeDataImp implements api.NodeData {
         this.tag = 0;
     }
 
+    //getters and setters
     public NodeDataImp(int key){
         this.key = key;
     }
