@@ -1,6 +1,6 @@
 # Directed Weighted Graph
 
-**Created by Eldad Tsemach and Ilan Sirisky**
+*Created by Eldad Tsemach, Ilan Sirisky and Nir Meir *
 
 This project is a part of our Object Oriented Programming course in Java. The above project deals with the
 implementation of a Directed Weighted graph, using Nodes and Edges. As well as implementing a number of algorithms on
@@ -28,12 +28,12 @@ Example of the algorithm:
 
 ## Code Description
 
-- `GeoLocation.java` and `NodeData.java` : Implements and represents the vertices of the graph.
-- `EdgeData.java`: Implements and represents the edges of the graph.
-- `WeightedDirectedGraph.java`: Implements the graph itself, by using 2 hashmaps one for NodeData and the other for
+- `GeoLocationImp.java` and `NodeDataImp.java` : Implements and represents the vertices of the graph.
+- `EdgeDataImp.java`: Implements and represents the edges of the graph.
+- `WeightedDirectedGraphImp.java`: Implements the graph itself, by using 2 hashmaps one for NodeData and the other for
   EdgeData.
-- `api.Algorithms.java`: Implements all the algorithms that are listed above.
-- `Graphics.GUI` and `Graphics.LoadScreen`: are part of the Graphics.GUI.
+- `Algorithms.java`: Implements all the algorithms that are listed above.
+- `GUI.java`, `LoadScreen.java`, `AddScreen.java`, `RemoveScreen.java`, `ShortPathScreen.java` and `TspScreen.java`: are all part of the GUI.
 
 ## Dependencies
 
@@ -44,12 +44,9 @@ the json files are based on Gson version 2.8.6.
 
 To run this project, download th EX2.jar and /data folder, and place them in the same folder.
 
-- *Option 1* : Run from Graphics.GUI After you have downloaded the files neccessary (Ex2.jar, /data) run Ex2.jar, enter a path to
-  a json file in the loading screen. Select to run an algorithm from the menu. You can also choose to load or save a new
-  json file from the menu.
-- *Option 2* : run form CLI After you have downloaded the files neccessary (Ex2.jar, /data), open a terminal at the
+- Run from CLI After you have downloaded the files neccessary (Ex2.jar, /data), open a terminal at the
   current folder, and type:
-  `java -jar Ex2.jar G1.json `, or any json file.
+  `java -jar Ex2.jar <path\G1.json>`, or any json file.
 
 ## Input/Output Examples
 
