@@ -71,7 +71,7 @@ To run this project, download th Ex2.jar and /data folder, and place them in the
 
 ### Example for G1.json input :
 
-![](https://i.imgur.com/LohNcL8.png)  ![](https://i.imgur.com/MQzNuCr.png)
+![](https://i.imgur.com/LohNcL8.png) | ![](https://i.imgur.com/MQzNuCr.png)
 
 ##### In Edges :
 
