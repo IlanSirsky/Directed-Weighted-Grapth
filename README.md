@@ -37,22 +37,41 @@ Example of the algorithm:
 
 ## Dependencies
 
-This project is using Java version 15. The tests included in this project are on JUnit version 5.7. Reading and writing
-the json files are based on Gson version 2.8.6.
+This project is using Java version 15.
+
+The tests included in this project are on JUnit version 5.7.
+
+Reading and writing the json files are based on Gson version 2.8.6.
 
 # How to Run
 
-To run this project, download th EX2.jar and /data folder, and place them in the same folder.
+To run this project, download th Ex2.jar and /data folder, and place them in the same folder.
 
 - Run from CLI After you have downloaded the files neccessary (Ex2.jar, /data), open a terminal at the
-  current folder, and type:
-  `java -jar Ex2.jar <path\G1.json>`, or any json file.
+  current folder,
+  
+  and type: `java -jar Ex2.jar <path\G1.json>`, or any json file. (Example for a path `.\data\G1.json`).
+- Inside the GUI from the menu bar you can find:
+   - `File` : 
+      - Save the graph to a new json file.
+      -  Load a new graph from a json file in the right format.
+   - `Algorithm` : 
+       - Find the shortest path between two nodes. Enter 2 node IDs that are in the graph. The path will be shown in green color.
+       - Find the center node of the graph. The node Will be shown in black color.
+       - Run a TSP algorithm on a group of nodes. Enter any amount of node IDs as you want with ',' between them, example (1,3,7,11). he path will be shown in green color.
+       - Clear any colors from the graph.
+   - `Graph` :
+       - Add a new node to the graph. Enter X and Y coordinates.
+       - Add a new edge to the graph. Enter 2 node IDs you wish to connect and choose the weight of the edge.
+       - Delete a node from the graph. Choose node ID to delete.
+       - Delete an edge from the graph. Choose 2 node IDs you with to disconnect.
+  
 
 ## Input/Output Examples
 
 ### Example for G1.json input :
 
-![Building](https://i.imgur.com/LohNcL8.png)| ![](https://i.imgur.com/MQzNuCr.png)
+![](https://i.imgur.com/LohNcL8.png)  ![](https://i.imgur.com/MQzNuCr.png)
 
 ##### In Edges :
 
