@@ -297,14 +297,6 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
                     Iterator<JsonElement> iterEdges = Edges.iterator();
                     int src, dest;
                     double w;
-                    while (iterEdges.hasNext()) { //adding all the edges to graph from the json file
-                        JsonElement edge = iterEdges.next();
-                        src = edge.getAsJsonObject().get("src").getAsInt();
-                        dest = edge.getAsJsonObject().get("dest").getAsInt();
-                        w = edge.getAsJsonObject().get("w").getAsDouble();
-                        graph.connect(src, dest, w);
-                    }
-
                     Iterator<JsonElement> iterNodes = Nodes.iterator();
                     while (iterNodes.hasNext()) { //adding all the nodes to graph from the json file
                         JsonElement node = iterNodes.next();
@@ -312,6 +304,13 @@ public class Algorithms implements DirectedWeightedGraphAlgorithms {
                         String coordinates = node.getAsJsonObject().get("pos").getAsString();
                         GeoLocation pos = new GeoLocationImp(coordinates);
                         graph.getNode(node.getAsJsonObject().get("id").getAsInt()).setLocation(pos);
+                    }
+                    while (iterEdges.hasNext()) { //adding all the edges to graph from the json file
+                        JsonElement edge = iterEdges.next();
+                        src = edge.getAsJsonObject().get("src").getAsInt();
+                        dest = edge.getAsJsonObject().get("dest").getAsInt();
+                        w = edge.getAsJsonObject().get("w").getAsDouble();
+                        graph.connect(src, dest, w);
                     }
                     return graph;
                 }
